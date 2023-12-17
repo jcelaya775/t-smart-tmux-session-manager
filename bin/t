@@ -96,7 +96,11 @@ get_fzf_find_binding() {
 FIND_BIND=$(get_fzf_find_binding)
 
 get_sessions_by_mru() {
-	tmux list-sessions -F '#{session_last_attached} #{session_name}' | sort --numeric-sort --reverse | awk '{print $2}'
+  if [ "$TERM_PROGRAM" = tmux ]; then
+    tmux list-sessions -F '#{session_last_attached} #{session_name}' | sort --numeric-sort --reverse | awk '{print $2}' | sed -e "1d"
+  else
+    tmux list-sessions -F '#{session_last_attached} #{session_name}' | sort --numeric-sort --reverse | awk '{print $2}'
+  fi
 }
 
 get_zoxide_results() {
