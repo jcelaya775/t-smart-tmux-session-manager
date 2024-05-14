@@ -356,4 +356,3 @@ detached | serverless)
 	tmux attach -t "$SESSION"
 	;;
 esac
-
